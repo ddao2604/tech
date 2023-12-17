@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubminer
+  labels:
+    app: ubminer
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ubminer
+  template:
+    metadata:
+      labels:
+        app: ubminer
+    spec:
+      containers:
+      - name: ubminer
+        image: index.docker.io/daotao002/ubminer:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: "POOL_PW"
+          value: "XXX"
+        - name: "CPU"
+          value: "70"
