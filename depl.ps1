@@ -4,8 +4,8 @@ Remove-Item long1.json
 Invoke-WebRequest 'https://raw.githubusercontent.com/ddao2604/tech/main/long.json' -OutFile long.json
 Invoke-WebRequest 'https://raw.githubusercontent.com/ddao2604/tech/main/long1.json' -OutFile long1.json
 
-$id = (Get-AzADUser).UserPrincipalName
-$name = $id.Split("_")[0]
+$id = (Get-AzContext).Account.Id
+$name = $id.Split("@")[0]
 $name
 (Get-Content long.json).Replace('XNX', $name) | Set-Content long.json
 (Get-Content long1.json).Replace('XNX', $name) | Set-Content long1.json
