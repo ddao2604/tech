@@ -1,3 +1,5 @@
+Connect-AzAccount -UseDeviceAuthentication
+
 Invoke-WebRequest 'https://raw.githubusercontent.com/ddao2604/tech/main/temp.json' -OutFile temp.json
 Invoke-WebRequest 'https://raw.githubusercontent.com/ddao2604/tech/main/temp1.json' -OutFile temp1.json
 
