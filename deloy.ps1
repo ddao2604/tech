@@ -49,6 +49,11 @@ While($run)
 			
 		}
 	}
+ 	$len = $loclist.Length
+	if($len -lt 1)
+	{
+		break
+	}
 	$time = Get-Random -Minimum 50 -Maximum 80
 	$waitSeconds = $time
 
