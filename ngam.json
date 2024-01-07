@@ -86,7 +86,7 @@
 	  
       "sku": {
         "name": "[parameters('sku')]",
-		"capacity":5
+		"capacity":1
       },
       "kind": "linux",
       "properties": {
