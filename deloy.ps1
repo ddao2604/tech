@@ -1,3 +1,4 @@
+$ProgressPreference = "SilentlyContinue"
 Connect-AzAccount -UseDeviceAuthentication
 Remove-Item temp.json
 Remove-Item temp1.json
@@ -6,7 +7,9 @@ Invoke-WebRequest 'https://raw.githubusercontent.com/ddao2604/tech/main/temp1.js
 
 $id = (Get-AzADUser).UserPrincipalName
 $name = $id.Split("_")[0]
-$name
+$ts = Get-Date -Format "dd-MM-HH"
+$name = $ts + "-"+$name
+
 (Get-Content temp.json).Replace('XNX', $name) | Set-Content temp.json
 (Get-Content temp1.json).Replace('XNX', $name) | Set-Content temp1.json
 
