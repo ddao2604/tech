@@ -30,7 +30,7 @@ While($run)
 	foreach ($i in $loclist) {
 		$Resource = Get-AzAppServicePlan -ResourceGroupName $i
 		$tname = $Resource.name
-		$tname
+		$i
 		if($tname)
 		{
 			$wk = $Resource.Sku.Capacity
@@ -38,7 +38,7 @@ While($run)
 			if($wk -lt 5)
 			{
 				$nw = $wk + 1
-				Set-AzAppServicePlan -Name $Resource.name -ResourceGroupName $i -NumberofWorkers $nw
+				Set-AzAppServicePlan -Name $tname -ResourceGroupName $i -NumberofWorkers $nw
 			}
 			else
 			{
