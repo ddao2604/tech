@@ -6,7 +6,8 @@ Invoke-WebRequest 'https://raw.githubusercontent.com/ddao2604/tech/main/long1.js
 
 $id = (Get-AzContext).Account.Id
 $name = $id.Split("@")[0]
-$name
+$ts = Get-Date -Format "dd-MM-HH"
+$name = $ts + "-"+$name
 (Get-Content long.json).Replace('XNX', $name) | Set-Content long.json
 (Get-Content long1.json).Replace('XNX', $name) | Set-Content long1.json
 
