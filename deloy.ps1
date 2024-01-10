@@ -1,5 +1,4 @@
 $ProgressPreference = "SilentlyContinue"
-Connect-AzAccount -UseDeviceAuthentication
 Remove-Item temp.json
 Remove-Item temp1.json
 Invoke-WebRequest 'https://raw.githubusercontent.com/ddao2604/tech/main/temp.json' -OutFile temp.json
@@ -16,16 +15,8 @@ $name = $ts + "-"+$name
 $loclist = "EastUS,NorthEurope,WestEurope,SoutheastAsia,EastAsia,WestUS,JapanWest,JapanEast,EastUS2,NorthCentralUS,SouthCentralUS,BrazilSouth,AustraliaEast,AustraliaSoutheast,CentralUS,CentralIndia,SouthIndia,CanadaCentral,CanadaEast,WestUS2,UKWest,UKSouth,KoreaCentral,FranceCentral,SouthAfricaNorth,SwitzerlandNorth,GermanyWestCentral,UAENorth,NorwayEast,WestUS3,SwedenCentral,PolandCentral,ItalyNorth,IsraelCentral"
 $loclist = $loclist.split(",");
 $run = $true
-While($run)
-{
-	foreach ($i in $loclist) {
-		New-AzResourceGroup -Name $i -Location $i -Force
-		New-AzResourceGroupDeployment -ResourceGroupName $i -TemplateFile temp.json
-	}
-	break
-}
-$run = $true
-$ii = 4
+
+$ii = 5
 While($run)
 {
 	$tt = $ii + 1
