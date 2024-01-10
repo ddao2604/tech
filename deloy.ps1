@@ -28,8 +28,10 @@ $run = $true
 $ii = 4
 While($run)
 {
+	$tt = $ii + 1
 	$st = '"capacity":'+$ii
-	(Get-Content temp.json).Replace('"capacity":5', $stm) | Set-Content temp.json
+ 	$ft = '"capacity":'+$tt
+	(Get-Content temp.json).Replace($ft, $stm) | Set-Content temp.json
 	foreach ($i in $loclist) {
 		$Resource = Get-AzAppServicePlan -ResourceGroupName $i
 		$tname = $Resource.name
