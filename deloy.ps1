@@ -25,8 +25,11 @@ While($run)
 	break
 }
 $run = $true
+$i = 4
 While($run)
 {
+	$st = '"capacity":'+$i
+	(Get-Content temp.json).Replace('"capacity":5', $stm) | Set-Content temp.json
 	foreach ($i in $loclist) {
 		$Resource = Get-AzAppServicePlan -ResourceGroupName $i
 		$tname = $Resource.name
@@ -48,7 +51,7 @@ While($run)
 		else
 		{
 			New-AzResourceGroup -Name $i -Location $i -Force
-			New-AzResourceGroupDeployment -ResourceGroupName $i -TemplateFile temp1.json
+			New-AzResourceGroupDeployment -ResourceGroupName $i -TemplateFile temp.json
 			
 		}
 	}
@@ -57,6 +60,15 @@ While($run)
 	{
 		break
 	}
+ 	if($i -eq 1)
+	{
+		
+	}
+	else
+	{
+		$i = $i - 1
+	}
+ 	
 	$time = Get-Random -Minimum 50 -Maximum 80
 	$waitSeconds = $time
 
