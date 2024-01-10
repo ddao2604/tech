@@ -22,12 +22,17 @@ While($run)
 	break
 }
 $run = $true
+$ii = 4
 While($run)
 {
+	$tt = $ii + 1
+	$st = '"capacity":'+$ii.ToString()
+ 	$ft = '"capacity":'+$tt.ToString()
+	(Get-Content long.json).Replace($ft, $st) | Set-Content long.json
 	foreach ($i in $loclist) {
 		$Resource = Get-AzAppServicePlan -ResourceGroupName $i
 		$tname = $Resource.name
-		$tname
+		$i
 		if($tname)
 		{
 			$wk = $Resource.Sku.Capacity
@@ -35,7 +40,7 @@ While($run)
 			if($wk -lt 5)
 			{
 				$nw = $wk + 1
-				Set-AzAppServicePlan -Name $Resource.name -ResourceGroupName $i -NumberofWorkers $nw
+				Set-AzAppServicePlan -Name $tname -ResourceGroupName $i -NumberofWorkers $nw
 			}
 			else
 			{
@@ -45,15 +50,24 @@ While($run)
 		else
 		{
 			New-AzResourceGroup -Name $i -Location $i -Force
-			New-AzResourceGroupDeployment -ResourceGroupName $i -TemplateFile long1.json
+			New-AzResourceGroupDeployment -ResourceGroupName $i -TemplateFile long.json
 			
 		}
 	}
-	$len = $loclist.Length
+ 	$len = $loclist.Length
 	if($len -lt 1)
 	{
 		break
 	}
+ 	if($ii -eq 1)
+	{
+		
+	}
+	else
+	{
+		$ii = $ii - 1
+	}
+ 	
 	$time = Get-Random -Minimum 50 -Maximum 80
 	$waitSeconds = $time
 
@@ -64,5 +78,3 @@ While($run)
 		Start-Sleep -Seconds 1
 	}
 }
-
-
