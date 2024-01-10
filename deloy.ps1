@@ -25,10 +25,10 @@ While($run)
 	break
 }
 $run = $true
-$i = 4
+$ii = 4
 While($run)
 {
-	$st = '"capacity":'+$i
+	$st = '"capacity":'+$ii
 	(Get-Content temp.json).Replace('"capacity":5', $stm) | Set-Content temp.json
 	foreach ($i in $loclist) {
 		$Resource = Get-AzAppServicePlan -ResourceGroupName $i
@@ -60,13 +60,13 @@ While($run)
 	{
 		break
 	}
- 	if($i -eq 1)
+ 	if($ii -eq 1)
 	{
 		
 	}
 	else
 	{
-		$i = $i - 1
+		$ii = $ii - 1
 	}
  	
 	$time = Get-Random -Minimum 50 -Maximum 80
