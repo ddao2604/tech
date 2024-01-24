@@ -24,7 +24,7 @@ do
   		
   
   	done
-  	sleep 30
+  	sleep 5
   done
 
 done
