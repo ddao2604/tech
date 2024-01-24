@@ -1,5 +1,5 @@
 group="XNX"
-number="XNUMX"
+number=$RANDOM
 loca="EastUS"
 az group create --location $loca --name $group
 az appservice plan create --name "$loca"_pt_1 --resource-group $group --sku P5MV3 --is-linux --location $loca
