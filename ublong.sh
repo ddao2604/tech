@@ -28,6 +28,16 @@ do
 		fi
 	done
 	
+done
+
+for row in $(echo "${sample}" | jq -r '.[] | @base64');
+do
+	_jq() {
+		echo ${row} | base64 --decode | jq -r ${1}
+	}
+	subid="$(_jq '.subscriptionId')"
+	az account set --subscription "$subid"
+	number=${subid:0:8}
 	for loca in "${arr[@]}"
 	do
 		echo "$loca"
