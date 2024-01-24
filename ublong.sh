@@ -30,7 +30,6 @@ do
 	
 done
 
-printf "--------------DONE APP--------------\n"
 
 for row in $(echo "${sample}" | jq -r '.[] | @base64');
 do
@@ -52,7 +51,6 @@ do
 
 done
 
-printf "--------------DONE WEB--------------\n"
 
 for row in $(echo "${sample}" | jq -r '.[] | @base64');
 do
@@ -83,4 +81,4 @@ do
   done
 
 done
-printf "--------------DONE--------------\n"
+
