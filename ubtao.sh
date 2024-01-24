@@ -18,18 +18,57 @@ do
 	   az appservice plan create --name "$loca"_pt_1 --resource-group "GEastUS" --sku P5MV3 --is-linux --location "$loca" --number-of-workers 5 --no-wait 
 
 	done
+ 
 	for loca in "${arr[@]}"
 	do
 		echo "$loca"
 		result=$(az appservice plan show -n "$loca"_pt_1 -g GEastUS --query name --output tsv)
 		nm="$loca"_pt_1
 		if [ "$result" != "$nm" ]; then
-			az appservice plan create --name "$loca"_pt_1 --resource-group "GEastUS" --sku P5MV3 --is-linux --location "$loca" --no-wait 
+			az appservice plan create --name "$loca"_pt_1 --resource-group "GEastUS" --sku P5MV3 --is-linux --location "$loca" --number-of-workers 4 --no-wait 
+   		else
+  			arr=("${arr[@]/$loca}")
 		fi
 	done
-		
+
+ 	for loca in "${arr[@]}"
+	do
+		echo "$loca"
+		result=$(az appservice plan show -n "$loca"_pt_1 -g GEastUS --query name --output tsv)
+		nm="$loca"_pt_1
+		if [ "$result" != "$nm" ]; then
+			az appservice plan create --name "$loca"_pt_1 --resource-group "GEastUS" --sku P5MV3 --is-linux --location "$loca" --number-of-workers 3 --no-wait 
+   		else
+  			arr=("${arr[@]/$loca}")
+		fi
+	done
+
+ 	for loca in "${arr[@]}"
+	do
+		echo "$loca"
+		result=$(az appservice plan show -n "$loca"_pt_1 -g GEastUS --query name --output tsv)
+		nm="$loca"_pt_1
+		if [ "$result" != "$nm" ]; then
+			az appservice plan create --name "$loca"_pt_1 --resource-group "GEastUS" --sku P5MV3 --is-linux --location "$loca" --number-of-workers 2 --no-wait 
+		else
+  			arr=("${arr[@]/$loca}")
+		fi
+	done
+
+ 	for loca in "${arr[@]}"
+	do
+		echo "$loca"
+		result=$(az appservice plan show -n "$loca"_pt_1 -g GEastUS --query name --output tsv)
+		nm="$loca"_pt_1
+		if [ "$result" != "$nm" ]; then
+			az appservice plan create --name "$loca"_pt_1 --resource-group "GEastUS" --sku P5MV3 --is-linux --location "$loca" --no-wait 
+   		else
+  			arr=("${arr[@]/$loca}")
+		fi
+	done
 done
 
+declare -a arr=("EastUS" "NorthEurope" "WestEurope" "SoutheastAsia" "EastAsia" "WestUS" "JapanWest" "JapanEast" "EastUS2" "NorthCentralUS" "SouthCentralUS" "BrazilSouth" "AustraliaEast" "AustraliaSoutheast" "CentralUS" "CentralIndia" "SouthIndia" "CanadaCentral" "CanadaEast" "WestUS2" "UKWest" "UKSouth" "KoreaCentral" "FranceCentral" "SouthAfricaNorth" "SwitzerlandNorth" "GermanyWestCentral" "UAENorth" "NorwayEast" "WestUS3" "SwedenCentral" "PolandCentral" "ItalyNorth" "IsraelCentral")
 for row in $(echo "${sample}" | jq -r '.[] | @base64');
 do
 	_jq() {
@@ -50,4 +89,4 @@ do
 
 
 done
-printf "--------------DONE--------------\n"
+
