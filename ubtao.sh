@@ -9,6 +9,7 @@ do
 		echo ${row} | base64 --decode | jq -r ${1}\
 	}
 	subid="$(_jq '.subscriptionId')"
+ 	echo $subid
 	az account set --subscription "$subid"
 	number=${subid:0:8}
 	az group create --location "EastUS" --name "GEastUS"
