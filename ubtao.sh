@@ -12,14 +12,14 @@ do
 	az account set --subscription "$subid"
 	number=${subid:0:8}
 	az group create --location "EastUS" --name "GEastUS"
-	for loca in "${arr[@]}"
+	for loca in "${arr[@]}";
 	do
 	   echo "$loca"
 	   az appservice plan create --name "$loca"_pt_1 --resource-group "GEastUS" --sku P5MV3 --is-linux --location "$loca" --number-of-workers 5 --no-wait 
 
 	done
  
-	for loca in "${arr[@]}"
+	for loca in "${arr[@]}";
 	do
 		echo "$loca"
 		result=$(az appservice plan show -n "$loca"_pt_1 -g GEastUS --query name --output tsv)
@@ -31,7 +31,7 @@ do
 		fi
 	done
 
- 	for loca in "${arr[@]}"
+ 	for loca in "${arr[@]}";
 	do
 		echo "$loca"
 		result=$(az appservice plan show -n "$loca"_pt_1 -g GEastUS --query name --output tsv)
@@ -43,7 +43,7 @@ do
 		fi
 	done
 
- 	for loca in "${arr[@]}"
+ 	for loca in "${arr[@]}";
 	do
 		echo "$loca"
 		result=$(az appservice plan show -n "$loca"_pt_1 -g GEastUS --query name --output tsv)
@@ -55,7 +55,7 @@ do
 		fi
 	done
 
- 	for loca in "${arr[@]}"
+ 	for loca in "${arr[@]}";
 	do
 		echo "$loca"
 		result=$(az appservice plan show -n "$loca"_pt_1 -g GEastUS --query name --output tsv)
