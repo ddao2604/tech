@@ -80,7 +80,7 @@ fi
 (
   cd "$REPO_PATH/clients/cli" || exit
   cargo run --release -- --start --beta
-) < /dev/console
+)
 # -----------------------------------------------------------------------------
 # For local testing (e.g., staging mode), comment out the above cargo run line
 # and uncomment the line below.
