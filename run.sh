@@ -79,13 +79,13 @@ fi
 # -----------------------------------------------------------------------------
 (
   cd "$REPO_PATH/clients/cli" || exit
-  cargo run -r -- start --env beta
+  cargo run -r -- start --env beta >> log.txt
 ) 
 # -----------------------------------------------------------------------------
 # For local testing (e.g., staging mode), comment out the above cargo run line
 # and uncomment the line below.
 #
 # echo "Current location: $(pwd)"
-# (cd clients/cli &&   cargo run -r -- start --env beta
+# (cd clients/cli &&   cargo run -r -- start --env beta 
 # )
 # -----------------------------------------------------------------------------
